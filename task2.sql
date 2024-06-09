@@ -11,11 +11,11 @@ CREATE TABLE payments
 ORDER BY (payment_date, category, payment_id);
 
 CREATE MATERIALIZED VIEW payments_mv TO payments AS
-SELECT simpleJSONExtractString(value, 'id')       as payment_id,
-       simpleJSONExtractString(value, 'date')     as payment_date,
-       simpleJSONExtractString(value, 'purpose')  as purpose,
-       simpleJSONExtractString(value, 'category') as category,
-       simpleJSONExtractInt(value, 'money')       as money,
-       simpleJSONExtractInt(value, 'index')       as idx
+SELECT JSONExtractString(value, 'id')       as payment_id,
+       JSONExtractString(value, 'date')     as payment_date,
+       JSONExtractString(value, 'purpose')  as purpose,
+       JSONExtractString(value, 'category') as category,
+       JSONExtractInt(value, 'money')       as money,
+       JSONExtractInt(value, 'index')       as idx
 FROM source
-WHERE simpleJSONExtractString(value, 'type') == 'payment'
+WHERE JSONExtractString(value, 'type') == 'payment'

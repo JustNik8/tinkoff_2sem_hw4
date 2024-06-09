@@ -7,8 +7,8 @@ ORDER BY id;
 
 CREATE MATERIALIZED VIEW counters_mv TO counters AS
 SELECT
-    simpleJSONExtractString(value, 'id') as id,
-    SUM(simpleJSONExtractInt(value, 'value')) as count
+    JSONExtractString(value, 'id') as id,
+    SUM(JSONExtractInt(value, 'value')) as count
 FROM source
-WHERE simpleJSONExtractString(value, 'type') == 'counter'
+WHERE JSONExtractString(value, 'type') == 'counter'
 GROUP BY id
