@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  clickhouse_service:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "8123:8123"
+    environment:
+      CLICKHOUSE_USER: user
+      CLICKHOUSE_PASSWORD: user
+
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse/
+
+volumes:
+  clickhouse-data:
